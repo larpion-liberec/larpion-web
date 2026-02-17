@@ -1,107 +1,510 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Larpión – larpový spolek</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Larpión je larpový spolek z Liberce. Organizujeme larpové hry, workshopy a pravidelná setkání." />
 
-  <meta name="description" content="Larpión je larpový spolek z Liberce. Organizujeme larpové hry, workshopy a pravidelná setkání.">
+  <style>
+    :root{
+      --bg: #0b0f14;          /* ink */
+      --panel: #101826;       /* deep blue-black */
+      --panel2: #0f141d;
+      --text: #e9eef6;        /* parchment light */
+      --muted: #b7c4d6;
+      --line: rgba(233,238,246,.12);
+
+      --accent: #d6b26a;      /* warm gold */
+      --accent2: #8fd3ff;     /* cold magic */
+      --danger: #ff7b7b;
+
+      --shadow: 0 12px 40px rgba(0,0,0,.45);
+      --radius: 18px;
+      --radius2: 26px;
+      --max: 1080px;
+    }
+
+    *{ box-sizing: border-box; }
+    html,body{ height: 100%; }
+    body{
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(1200px 700px at 70% -10%, rgba(143,211,255,.18), transparent 60%),
+        radial-gradient(900px 600px at 0% 20%, rgba(214,178,106,.14), transparent 55%),
+        radial-gradient(700px 500px at 85% 70%, rgba(214,178,106,.10), transparent 55%),
+        linear-gradient(180deg, #070a0f 0%, var(--bg) 70%);
+      line-height: 1.6;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+
+    .wrap{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 28px 18px 80px;
+    }
+
+    /* Top nav */
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      background: rgba(16,24,38,.65);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 14px;
+      z-index: 10;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      min-width: 220px;
+    }
+
+    .sigil{
+      width: 38px; height: 38px;
+      border-radius: 12px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(214,178,106,.85), rgba(214,178,106,.12) 55%, rgba(16,24,38,.0) 60%),
+        radial-gradient(circle at 70% 70%, rgba(143,211,255,.55), rgba(143,211,255,.0) 55%),
+        linear-gradient(180deg, rgba(233,238,246,.10), rgba(233,238,246,.02));
+      border: 1px solid rgba(214,178,106,.35);
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+    }
+
+    .brand h1{
+      font-size: 16px;
+      line-height: 1.2;
+      margin: 0;
+      letter-spacing: .6px;
+    }
+    .brand p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .nav{
+      display:flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(15,20,29,.55);
+      color: var(--muted);
+      font-size: 13px;
+      transition: transform .12s ease, border-color .12s ease, color .12s ease;
+      white-space: nowrap;
+    }
+    .chip:hover{
+      transform: translateY(-1px);
+      border-color: rgba(214,178,106,.35);
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    /* Hero */
+    .hero{
+      margin-top: 18px;
+      padding: 34px 22px 22px;
+      border-radius: var(--radius2);
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(600px 240px at 20% 10%, rgba(214,178,106,.20), transparent 65%),
+        radial-gradient(700px 280px at 80% 20%, rgba(143,211,255,.16), transparent 60%),
+        linear-gradient(180deg, rgba(16,24,38,.85), rgba(15,20,29,.55));
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero:before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(circle at 35% 20%, rgba(214,178,106,.22), transparent 40%),
+        radial-gradient(circle at 75% 35%, rgba(143,211,255,.18), transparent 45%);
+      filter: blur(18px);
+      opacity: .55;
+      pointer-events: none;
+    }
+
+    .hero-grid{
+      position: relative;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+    .dot{
+      width: 8px; height: 8px; border-radius: 999px;
+      background: var(--accent);
+      box-shadow: 0 0 18px rgba(214,178,106,.55);
+    }
+
+    .hero h2{
+      margin: 0 0 10px 0;
+      font-size: 34px;
+      line-height: 1.15;
+      letter-spacing: .3px;
+    }
+
+    .hero p{
+      margin: 0 0 18px 0;
+      color: var(--muted);
+      max-width: 60ch;
+    }
+
+    .cta-row{
+      display:flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items:center;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(15,20,29,.55);
+      color: var(--text);
+      font-weight: 600;
+      font-size: 14px;
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      border-color: rgba(214,178,106,.45);
+      background: rgba(15,20,29,.80);
+      text-decoration: none;
+    }
+
+    .btn.primary{
+      background: linear-gradient(180deg, rgba(214,178,106,.90), rgba(214,178,106,.55));
+      border-color: rgba(214,178,106,.75);
+      color: #1b1407;
+    }
+    .btn.primary:hover{
+      border-color: rgba(214,178,106,1);
+      background: linear-gradient(180deg, rgba(214,178,106,1), rgba(214,178,106,.62));
+    }
+
+    .sidecard{
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: rgba(15,20,29,.55);
+      padding: 14px 14px 12px;
+    }
+
+    .sidecard h3{
+      margin: 0 0 6px 0;
+      font-size: 14px;
+      letter-spacing: .4px;
+    }
+    .sidecard p{
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(143,211,255,.25);
+      color: rgba(233,238,246,.92);
+      background: rgba(143,211,255,.08);
+      font-size: 12px;
+      margin-top: 10px;
+      width: fit-content;
+    }
+
+    /* Sections */
+    .grid{
+      margin-top: 18px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .card{
+      border-radius: var(--radius2);
+      border: 1px solid var(--line);
+      background: rgba(16,24,38,.55);
+      box-shadow: 0 10px 28px rgba(0,0,0,.28);
+      padding: 18px 18px 14px;
+    }
+
+    .card h3{
+      margin: 0 0 8px 0;
+      font-size: 16px;
+      letter-spacing: .3px;
+    }
+
+    .muted{ color: var(--muted); }
+
+    .list{
+      margin: 10px 0 0 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 10px;
+    }
+
+    .item{
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(15,20,29,.45);
+    }
+
+    .item .title{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: .2px;
+    }
+
+    .badge{
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      color: var(--muted);
+      background: rgba(15,20,29,.55);
+      white-space: nowrap;
+    }
+    .badge.gold{
+      border-color: rgba(214,178,106,.45);
+      color: rgba(214,178,106,.95);
+      background: rgba(214,178,106,.10);
+    }
+    .badge.blue{
+      border-color: rgba(143,211,255,.35);
+      color: rgba(143,211,255,.95);
+      background: rgba(143,211,255,.10);
+    }
+
+    .meta{
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .callout{
+      margin-top: 12px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(214,178,106,.30);
+      background: rgba(214,178,106,.08);
+      color: rgba(233,238,246,.92);
+    }
+
+    footer{
+      margin-top: 18px;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      color: var(--muted);
+      font-size: 13px;
+      display:flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Responsive */
+    @media (max-width: 860px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .grid{ grid-template-columns: 1fr; }
+      .brand{ min-width: unset; }
+    }
+  </style>
 </head>
 
 <body>
+  <div class="wrap">
 
-  <header>
-    <h1>Larpión</h1>
-    <p>
-      Larpový spolek zaměřený na příběh, společné tvoření a zážitkové hry.
-    </p>
-  </header>
+    <div class="topbar">
+      <div class="brand">
+        <div class="sigil" aria-hidden="true"></div>
+        <div>
+          <h1>Larpión</h1>
+          <p>larpový spolek • Liberec</p>
+        </div>
+      </div>
 
-  <main>
+      <nav class="nav" aria-label="Hlavní navigace">
+        <!-- zatím anchor odkazy; později je vyměníme za podstránky -->
+        <a class="chip" href="#larpy">Larpy</a>
+        <a class="chip" href="#setkani">Setkání</a>
+        <a class="chip" href="#kontakt">Kontakt</a>
+      </nav>
+    </div>
 
-    <!-- O SPOLKU -->
-    <section>
-      <h2>O spolku</h2>
-      <p>
-        Larpión je spolek lidí, které spojuje larp, příběhy a chuť vytvářet
-        společné zážitky. Věnujeme se přípravě a organizaci larpových her,
-        práci se světem, postavami i atmosférou.
-      </p>
-      <p>
-        Kromě samotných her se pravidelně scházíme, pořádáme workshopy
-        a společně připravujeme nadcházející projekty.
-      </p>
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="kicker"><span class="dot"></span> Organizujeme larpy, workshopy a společné tvoření</div>
+          <h2>Komunita, která staví světy — a pak je společně prožívá.</h2>
+          <p>
+            Larpión je spolek lidí, které spojuje larp, příběhy a chuť vytvářet společné zážitky.
+            Pravidelně se scházíme, připravujeme rekvizity a kostýmy a tvoříme nadcházející hry.
+          </p>
+
+          <div class="cta-row">
+            <a class="btn primary" href="#sd2026">Stará Dobrá 2026</a>
+            <a class="btn" href="#larpy">Zobrazit projekty</a>
+            <a class="btn" href="#setkani">Přijít na schůzku</a>
+          </div>
+        </div>
+
+        <aside class="sidecard">
+          <h3>Nejbližší velká akce</h3>
+          <p class="muted"><strong>Stará Dobrá 2026 – Božská komedie</strong><br>10.–14. 6. 2026 • Farská louka (za Raspenavou)</p>
+          <div class="pill">Registrace: brzy / připravujeme</div>
+        </aside>
+      </div>
     </section>
 
-    <!-- SETKÁNÍ -->
-    <section>
-      <h2>Pravidelná setkání</h2>
-      <p>
-        📅 <strong>Každé pondělí</strong><br>
-        🕕 <strong>18:00–20:00</strong><br>
-        ☕ <strong>Kavárna Kousek Slunce (Liberec)</strong>
-      </p>
-      <p>
-        Naše schůzky jsou otevřené všem zájemcům. Doporučujeme ale
-        předchozí kontakt, abychom o plánované návštěvě věděli.
-      </p>
+    <section id="setkani" class="grid" aria-label="Setkání a workshopy">
+      <div class="card">
+        <h3>Pravidelná setkání</h3>
+        <p class="muted">
+          📅 <strong>Každé pondělí</strong> • 🕕 <strong>18:00–20:00</strong><br>
+          ☕ <strong>Kavárna Kousek Slunce (Liberec)</strong>
+        </p>
+        <div class="callout">
+          Schůzky jsou otevřené všem zájemcům. Doporučujeme ale předchozí kontakt, abychom o plánované návštěvě věděli.
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Víkendové workshopy</h3>
+        <p class="muted">
+          Občas pořádáme víkendové workshopy zaměřené na tvorbu <strong>kostýmů</strong>, <strong>rekvizit</strong>
+          nebo intenzivnější práci na organizaci nadcházejících larpů.
+        </p>
+        <ul class="list">
+          <li class="item">
+            <div class="title">Kostýmy & rekvizity <span class="badge blue">workshop</span></div>
+            <div class="meta">Sdílení zkušeností, výroba a úpravy.</div>
+          </li>
+          <li class="item">
+            <div class="title">Produkce & organizace <span class="badge blue">workshop</span></div>
+            <div class="meta">Intenzivní práce na připravovaných ročnících.</div>
+          </li>
+        </ul>
+      </div>
     </section>
 
-    <!-- PŘIPRAVOVANÉ LARPY -->
-    <section>
-      <h2>Připravované larpy</h2>
+    <section id="larpy" class="grid" aria-label="Larpy a projekty">
+      <div class="card" id="sd2026">
+        <h3>Připravované</h3>
+        <ul class="list">
+          <li class="item">
+            <div class="title">
+              Stará Dobrá 2026 – Božská komedie
+              <span class="badge gold">10.–14. 6. 2026</span>
+            </div>
+            <div class="meta">
+              Družinový larp ze světa Awainu • Farská louka (za Raspenavou)
+            </div>
+            <div class="callout">
+              Registraci spustíme co nejdříve. Jakmile bude formulář hotový, objeví se zde výrazné tlačítko.
+            </div>
+          </li>
+        </ul>
+      </div>
 
-      <h3>Stará Dobrá 2026 – Božská komedie</h3>
-      <p>
-        Družinový larp ze světa Awainu.
-      </p>
-      <ul>
-        <li><strong>Termín:</strong> 10.–14. 6. 2026</li>
-        <li><strong>Místo:</strong> Farská louka, za Raspenavou</li>
-      </ul>
-      <p>
-        Registrace budou otevřeny co nejdříve.
-      </p>
+      <div class="card">
+        <h3>Odehrané</h3>
+        <ul class="list">
+          <li class="item">
+            <div class="title">Stará Dobrá 2025 <span class="badge">odehráno</span></div>
+            <div class="meta">Družinový larp (2. ročník).</div>
+          </li>
+          <li class="item">
+            <div class="title">Stará Dobrá 2024 <span class="badge">odehráno</span></div>
+            <div class="meta">Družinový larp (1. ročník).</div>
+          </li>
+          <li class="item">
+            <div class="title">Supernatural – 1. běh <span class="badge">listopad 2025</span></div>
+            <div class="meta">Moderní / temnější projekt zaměřený na atmosféru.</div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Rozpracované</h3>
+        <p class="muted">
+          Pracujeme také na dalších larpových projektech, u kterých zatím není jisté, zda a kdy budou realizovány.
+          Jakmile se některý z nich přiblíží uskutečnění, doplníme sem informace.
+        </p>
+        <div class="callout">
+          Máš zájem o budoucí projekty? Napiš nám a dáme vědět, až se něco otevře.
+        </div>
+      </div>
+
+      <div class="card" id="kontakt">
+        <h3>Kontakt</h3>
+        <p class="muted">
+          Máš zájem se zapojit, přijít se podívat nebo se na něco zeptat?
+          Nejlépe nás zastihneš přes náš Facebook.
+        </p>
+        <ul class="list">
+          <li class="item">
+            <div class="title">Facebook – Larpión <span class="badge blue">komunita</span></div>
+            <div class="meta">Doplníme přímý odkaz (až budeš chtít).</div>
+          </li>
+          <li class="item">
+            <div class="title">Facebook – Stará Dobrá <span class="badge blue">projekt</span></div>
+            <div class="meta">Doplníme přímý odkaz (až budeš chtít).</div>
+          </li>
+        </ul>
+      </div>
     </section>
 
-    <!-- ODEHRANÉ PROJEKTY -->
-    <section>
-      <h2>Odehrané projekty</h2>
-      <ul>
-        <li>Stará Dobrá 2024</li>
-        <li>Stará Dobrá 2025</li>
-        <li>Supernatural – 1. běh (listopad 2025)</li>
-      </ul>
-    </section>
+    <footer>
+      <div>© Larpión</div>
+      <div class="muted">Web běží na Cloudflare Pages • aktualizace pár kliků přes GitHub</div>
+    </footer>
 
-    <!-- ROZPRACOVANÉ LARPY -->
-    <section>
-      <h2>Rozpracované larpy</h2>
-      <p>
-        Pracujeme také na dalších larpových projektech, u kterých zatím
-        není jisté, zda a kdy budou realizovány. Jakmile se některý z nich
-        přiblíží uskutečnění, objeví se zde více informací.
-      </p>
-    </section>
-
-    <!-- KONTAKT -->
-    <section>
-      <h2>Kontakt</h2>
-      <p>
-        Máš zájem se zapojit, přijít se podívat nebo se na něco zeptat?
-      </p>
-      <p>
-        Nejlépe nás zastihneš přes náš Facebook.
-      </p>
-    </section>
-
-  </main>
-
-  <footer>
-    <p>
-      © Larpión
-    </p>
-  </footer>
-
+  </div>
 </body>
 </html>
