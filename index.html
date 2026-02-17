@@ -8,91 +8,101 @@
 
   <style>
     :root{
-      --bg: #0b0f14;          /* ink */
-      --panel: #101826;       /* deep blue-black */
-      --panel2: #0f141d;
-      --text: #e9eef6;        /* parchment light */
-      --muted: #b7c4d6;
-      --line: rgba(233,238,246,.12);
+      /* Ink & parchment (přehlednější než full-dark) */
+      --bg-ink: #0b0f14;
+      --bg-ink-2: #0f1722;
 
-      --accent: #d6b26a;      /* warm gold */
-      --accent2: #8fd3ff;     /* cold magic */
-      --danger: #ff7b7b;
+      --paper: #f2e7cf;
+      --paper-2: #eadbbd;
+      --paper-3: #dfcfad;
 
-      --shadow: 0 12px 40px rgba(0,0,0,.45);
+      --ink: #1c2430;
+      --ink-2: #2a3546;
+      --muted: #4a5a70;
+
+      --gold: #b9882f;
+      --blue: #2f6fa6;
+      --red: #a13a3a;
+      --line: rgba(28,36,48,.14);
+
       --radius: 18px;
       --radius2: 26px;
-      --max: 1080px;
+      --shadow: 0 14px 40px rgba(0,0,0,.35);
+      --max: 1100px;
     }
 
-    *{ box-sizing: border-box; }
-    html,body{ height: 100%; }
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
     body{
-      margin: 0;
+      margin:0;
+      color: var(--ink);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
-      color: var(--text);
+      line-height:1.6;
+
+      /* Tmavé pozadí + „světlo“ kolem pergamenu */
       background:
-        radial-gradient(1200px 700px at 70% -10%, rgba(143,211,255,.18), transparent 60%),
-        radial-gradient(900px 600px at 0% 20%, rgba(214,178,106,.14), transparent 55%),
-        radial-gradient(700px 500px at 85% 70%, rgba(214,178,106,.10), transparent 55%),
-        linear-gradient(180deg, #070a0f 0%, var(--bg) 70%);
-      line-height: 1.6;
+        radial-gradient(1200px 700px at 20% -10%, rgba(185,136,47,.18), transparent 55%),
+        radial-gradient(900px 600px at 85% 10%, rgba(47,111,166,.18), transparent 55%),
+        radial-gradient(800px 600px at 60% 90%, rgba(185,136,47,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg-ink) 0%, var(--bg-ink-2) 80%);
     }
 
-    a{ color: inherit; text-decoration: none; }
+    a{ color: inherit; text-decoration:none; }
     a:hover{ text-decoration: underline; }
 
     .wrap{
       max-width: var(--max);
-      margin: 0 auto;
-      padding: 28px 18px 80px;
+      margin:0 auto;
+      padding: 20px 16px 72px;
     }
 
-    /* Top nav */
+    /* ===== Topbar ===== */
     .topbar{
+      position: sticky;
+      top: 12px;
+      z-index: 10;
+
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap: 14px;
-      padding: 14px 16px;
-      border: 1px solid var(--line);
-      background: rgba(16,24,38,.65);
-      backdrop-filter: blur(10px);
+      gap: 12px;
+
+      padding: 12px 14px;
       border-radius: var(--radius2);
       box-shadow: var(--shadow);
-      position: sticky;
-      top: 14px;
-      z-index: 10;
+
+      background:
+        linear-gradient(180deg, rgba(242,231,207,.95), rgba(234,219,189,.92));
+      border: 1px solid rgba(28,36,48,.18);
     }
 
     .brand{
       display:flex;
-      align-items:center;
       gap: 12px;
-      min-width: 220px;
+      align-items:center;
+      min-width: 230px;
     }
 
     .sigil{
-      width: 38px; height: 38px;
-      border-radius: 12px;
+      width: 40px; height: 40px;
+      border-radius: 14px;
       background:
-        radial-gradient(circle at 30% 30%, rgba(214,178,106,.85), rgba(214,178,106,.12) 55%, rgba(16,24,38,.0) 60%),
-        radial-gradient(circle at 70% 70%, rgba(143,211,255,.55), rgba(143,211,255,.0) 55%),
-        linear-gradient(180deg, rgba(233,238,246,.10), rgba(233,238,246,.02));
-      border: 1px solid rgba(214,178,106,.35);
-      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+        radial-gradient(circle at 35% 30%, rgba(185,136,47,.70), rgba(185,136,47,.08) 60%, transparent 62%),
+        radial-gradient(circle at 70% 70%, rgba(47,111,166,.45), rgba(47,111,166,.00) 58%),
+        linear-gradient(180deg, rgba(28,36,48,.06), rgba(28,36,48,.00));
+      border: 1px solid rgba(28,36,48,.18);
     }
 
     .brand h1{
+      margin:0;
       font-size: 16px;
-      line-height: 1.2;
-      margin: 0;
-      letter-spacing: .6px;
+      letter-spacing: .5px;
+      line-height: 1.15;
     }
     .brand p{
-      margin: 0;
-      color: var(--muted);
+      margin:0;
       font-size: 12px;
+      color: var(--muted);
     }
 
     .nav{
@@ -108,52 +118,39 @@
       gap: 8px;
       padding: 8px 12px;
       border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(15,20,29,.55);
-      color: var(--muted);
+      background: rgba(28,36,48,.06);
+      border: 1px solid rgba(28,36,48,.16);
+      color: var(--ink-2);
       font-size: 13px;
-      transition: transform .12s ease, border-color .12s ease, color .12s ease;
+      font-weight: 650;
+      transition: transform .12s ease, background .12s ease;
       white-space: nowrap;
     }
     .chip:hover{
       transform: translateY(-1px);
-      border-color: rgba(214,178,106,.35);
-      color: var(--text);
+      background: rgba(28,36,48,.09);
       text-decoration: none;
     }
 
-    /* Hero */
+    /* ===== Hero (Pergamenový „plát“ pro jasnou hierarchii) ===== */
     .hero{
-      margin-top: 18px;
-      padding: 34px 22px 22px;
+      margin-top: 16px;
       border-radius: var(--radius2);
-      border: 1px solid var(--line);
-      background:
-        radial-gradient(600px 240px at 20% 10%, rgba(214,178,106,.20), transparent 65%),
-        radial-gradient(700px 280px at 80% 20%, rgba(143,211,255,.16), transparent 60%),
-        linear-gradient(180deg, rgba(16,24,38,.85), rgba(15,20,29,.55));
       box-shadow: var(--shadow);
-      position: relative;
-      overflow: hidden;
-    }
+      overflow:hidden;
+      border: 1px solid rgba(242,231,207,.25);
 
-    .hero:before{
-      content:"";
-      position:absolute;
-      inset:-2px;
       background:
-        radial-gradient(circle at 35% 20%, rgba(214,178,106,.22), transparent 40%),
-        radial-gradient(circle at 75% 35%, rgba(143,211,255,.18), transparent 45%);
-      filter: blur(18px);
-      opacity: .55;
-      pointer-events: none;
+        radial-gradient(900px 380px at 18% 10%, rgba(185,136,47,.18), transparent 55%),
+        radial-gradient(900px 420px at 90% 0%, rgba(47,111,166,.16), transparent 55%),
+        linear-gradient(180deg, rgba(242,231,207,.97), rgba(234,219,189,.94));
     }
 
-    .hero-grid{
-      position: relative;
+    .hero-inner{
+      padding: 28px 18px 18px;
       display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 18px;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 16px;
       align-items: start;
     }
 
@@ -164,29 +161,32 @@
       color: var(--muted);
       font-size: 13px;
       margin-bottom: 10px;
+      font-weight: 650;
     }
     .dot{
-      width: 8px; height: 8px; border-radius: 999px;
-      background: var(--accent);
-      box-shadow: 0 0 18px rgba(214,178,106,.55);
+      width: 10px; height: 10px;
+      border-radius: 999px;
+      background: var(--gold);
+      box-shadow: 0 0 18px rgba(185,136,47,.38);
+      border: 1px solid rgba(28,36,48,.12);
     }
 
     .hero h2{
       margin: 0 0 10px 0;
       font-size: 34px;
-      line-height: 1.15;
-      letter-spacing: .3px;
+      line-height: 1.12;
+      letter-spacing: .2px;
     }
 
     .hero p{
-      margin: 0 0 18px 0;
-      color: var(--muted);
-      max-width: 60ch;
+      margin:0 0 16px 0;
+      color: var(--ink-2);
+      max-width: 68ch;
     }
 
     .cta-row{
       display:flex;
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
       align-items:center;
     }
@@ -196,66 +196,64 @@
       align-items:center;
       gap: 10px;
       padding: 10px 14px;
-      border-radius: 12px;
-      border: 1px solid var(--line);
-      background: rgba(15,20,29,.55);
-      color: var(--text);
-      font-weight: 600;
+      border-radius: 14px;
+      border: 1px solid rgba(28,36,48,.18);
+      background: rgba(242,231,207,.55);
+      color: var(--ink);
+      font-weight: 750;
       font-size: 14px;
-      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+      transition: transform .12s ease, background .12s ease;
     }
     .btn:hover{
       transform: translateY(-1px);
-      border-color: rgba(214,178,106,.45);
-      background: rgba(15,20,29,.80);
-      text-decoration: none;
+      background: rgba(242,231,207,.75);
+      text-decoration:none;
     }
-
     .btn.primary{
-      background: linear-gradient(180deg, rgba(214,178,106,.90), rgba(214,178,106,.55));
-      border-color: rgba(214,178,106,.75);
+      background: linear-gradient(180deg, rgba(185,136,47,.95), rgba(185,136,47,.72));
+      border-color: rgba(90,60,18,.28);
       color: #1b1407;
     }
     .btn.primary:hover{
-      border-color: rgba(214,178,106,1);
-      background: linear-gradient(180deg, rgba(214,178,106,1), rgba(214,178,106,.62));
+      background: linear-gradient(180deg, rgba(185,136,47,1), rgba(185,136,47,.78));
     }
 
+    /* ===== Side card in hero ===== */
     .sidecard{
       border-radius: var(--radius);
-      border: 1px solid var(--line);
-      background: rgba(15,20,29,.55);
+      background: rgba(242,231,207,.60);
+      border: 1px solid rgba(28,36,48,.18);
       padding: 14px 14px 12px;
     }
-
     .sidecard h3{
-      margin: 0 0 6px 0;
+      margin:0 0 6px 0;
       font-size: 14px;
-      letter-spacing: .4px;
+      letter-spacing:.4px;
     }
     .sidecard p{
-      margin: 0;
-      color: var(--muted);
+      margin:0;
+      color: var(--ink-2);
       font-size: 13px;
     }
 
-    .pill{
+    .tag{
       display:inline-flex;
       align-items:center;
       gap: 8px;
       padding: 6px 10px;
       border-radius: 999px;
-      border: 1px solid rgba(143,211,255,.25);
-      color: rgba(233,238,246,.92);
-      background: rgba(143,211,255,.08);
+      border: 1px solid rgba(28,36,48,.18);
+      background: rgba(28,36,48,.06);
+      color: var(--muted);
       font-size: 12px;
       margin-top: 10px;
       width: fit-content;
+      font-weight: 700;
     }
 
-    /* Sections */
+    /* ===== Content grid ===== */
     .grid{
-      margin-top: 18px;
+      margin-top: 16px;
       display:grid;
       grid-template-columns: 1fr 1fr;
       gap: 14px;
@@ -263,94 +261,102 @@
 
     .card{
       border-radius: var(--radius2);
-      border: 1px solid var(--line);
-      background: rgba(16,24,38,.55);
-      box-shadow: 0 10px 28px rgba(0,0,0,.28);
+      background:
+        linear-gradient(180deg, rgba(242,231,207,.96), rgba(234,219,189,.93));
+      border: 1px solid rgba(242,231,207,.22);
+      box-shadow: 0 10px 26px rgba(0,0,0,.28);
       padding: 18px 18px 14px;
     }
 
     .card h3{
-      margin: 0 0 8px 0;
+      margin:0 0 8px 0;
       font-size: 16px;
-      letter-spacing: .3px;
+      letter-spacing:.2px;
     }
 
     .muted{ color: var(--muted); }
+
+    .section-note{
+      margin-top: 10px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px dashed rgba(28,36,48,.22);
+      background: rgba(242,231,207,.55);
+      color: var(--ink-2);
+    }
 
     .list{
       margin: 10px 0 0 0;
       padding: 0;
       list-style: none;
-      display: grid;
+      display:grid;
       gap: 10px;
     }
 
     .item{
       padding: 12px 12px;
       border-radius: 14px;
-      border: 1px solid var(--line);
-      background: rgba(15,20,29,.45);
+      border: 1px solid rgba(28,36,48,.18);
+      background: rgba(242,231,207,.55);
     }
 
     .item .title{
       display:flex;
-      align-items:center;
+      align-items:flex-start;
       justify-content:space-between;
       gap: 10px;
-      font-weight: 700;
-      letter-spacing: .2px;
+      font-weight: 850;
+      letter-spacing: .15px;
     }
 
     .badge{
       font-size: 12px;
       padding: 4px 10px;
       border-radius: 999px;
-      border: 1px solid var(--line);
+      border: 1px solid rgba(28,36,48,.18);
       color: var(--muted);
-      background: rgba(15,20,29,.55);
+      background: rgba(28,36,48,.06);
       white-space: nowrap;
+      font-weight: 800;
     }
     .badge.gold{
-      border-color: rgba(214,178,106,.45);
-      color: rgba(214,178,106,.95);
-      background: rgba(214,178,106,.10);
+      border-color: rgba(185,136,47,.35);
+      color: #6d4a12;
+      background: rgba(185,136,47,.14);
     }
     .badge.blue{
-      border-color: rgba(143,211,255,.35);
-      color: rgba(143,211,255,.95);
-      background: rgba(143,211,255,.10);
+      border-color: rgba(47,111,166,.35);
+      color: #204d75;
+      background: rgba(47,111,166,.12);
+    }
+    .badge.done{
+      border-color: rgba(28,36,48,.18);
+      color: var(--muted);
+      background: rgba(28,36,48,.06);
     }
 
     .meta{
       margin-top: 6px;
-      color: var(--muted);
+      color: var(--ink-2);
       font-size: 13px;
     }
 
-    .callout{
-      margin-top: 12px;
-      padding: 12px 12px;
-      border-radius: 14px;
-      border: 1px solid rgba(214,178,106,.30);
-      background: rgba(214,178,106,.08);
-      color: rgba(233,238,246,.92);
-    }
-
+    /* ===== Footer ===== */
     footer{
       margin-top: 18px;
-      border-top: 1px solid var(--line);
-      padding-top: 18px;
-      color: var(--muted);
+      color: rgba(242,231,207,.88);
       font-size: 13px;
       display:flex;
       justify-content: space-between;
       gap: 12px;
       flex-wrap: wrap;
+      padding-top: 16px;
+      border-top: 1px solid rgba(242,231,207,.18);
     }
 
-    /* Responsive */
-    @media (max-width: 860px){
-      .hero-grid{ grid-template-columns: 1fr; }
+    /* ===== Responsive ===== */
+    @media (max-width: 880px){
+      .hero-inner{ grid-template-columns: 1fr; }
       .grid{ grid-template-columns: 1fr; }
       .brand{ min-width: unset; }
     }
@@ -370,7 +376,6 @@
       </div>
 
       <nav class="nav" aria-label="Hlavní navigace">
-        <!-- zatím anchor odkazy; později je vyměníme za podstránky -->
         <a class="chip" href="#larpy">Larpy</a>
         <a class="chip" href="#setkani">Setkání</a>
         <a class="chip" href="#kontakt">Kontakt</a>
@@ -378,26 +383,30 @@
     </div>
 
     <section class="hero">
-      <div class="hero-grid">
+      <div class="hero-inner">
         <div>
-          <div class="kicker"><span class="dot"></span> Organizujeme larpy, workshopy a společné tvoření</div>
-          <h2>Komunita, která staví světy — a pak je společně prožívá.</h2>
+          <div class="kicker"><span class="dot"></span> Družiny, příběh, kostýmy a společné tvoření</div>
+          <h2>Jsme Larpión. Stavíme hry, které se žijí.</h2>
           <p>
-            Larpión je spolek lidí, které spojuje larp, příběhy a chuť vytvářet společné zážitky.
-            Pravidelně se scházíme, připravujeme rekvizity a kostýmy a tvoříme nadcházející hry.
+            Organizujeme larpy, workshopy a komunitní setkávání. Máme za sebou dva ročníky družinového larpu
+            <strong>Stará Dobrá</strong> a první běh <strong>Supernatural</strong>. Teď chystáme další ročník:
+            <strong>Stará Dobrá 2026 – Božská komedie</strong>.
           </p>
 
           <div class="cta-row">
             <a class="btn primary" href="#sd2026">Stará Dobrá 2026</a>
-            <a class="btn" href="#larpy">Zobrazit projekty</a>
+            <a class="btn" href="#larpy">Projekty</a>
             <a class="btn" href="#setkani">Přijít na schůzku</a>
           </div>
         </div>
 
-        <aside class="sidecard">
+        <aside class="sidecard" id="sd2026">
           <h3>Nejbližší velká akce</h3>
-          <p class="muted"><strong>Stará Dobrá 2026 – Božská komedie</strong><br>10.–14. 6. 2026 • Farská louka (za Raspenavou)</p>
-          <div class="pill">Registrace: brzy / připravujeme</div>
+          <p>
+            <strong>Stará Dobrá 2026 – Božská komedie</strong><br>
+            10.–14. 6. 2026 • Farská louka (za Raspenavou)
+          </p>
+          <div class="tag">Registrace: brzy / připravujeme</div>
         </aside>
       </div>
     </section>
@@ -409,7 +418,7 @@
           📅 <strong>Každé pondělí</strong> • 🕕 <strong>18:00–20:00</strong><br>
           ☕ <strong>Kavárna Kousek Slunce (Liberec)</strong>
         </p>
-        <div class="callout">
+        <div class="section-note">
           Schůzky jsou otevřené všem zájemcům. Doporučujeme ale předchozí kontakt, abychom o plánované návštěvě věděli.
         </div>
       </div>
@@ -434,7 +443,7 @@
     </section>
 
     <section id="larpy" class="grid" aria-label="Larpy a projekty">
-      <div class="card" id="sd2026">
+      <div class="card">
         <h3>Připravované</h3>
         <ul class="list">
           <li class="item">
@@ -443,10 +452,10 @@
               <span class="badge gold">10.–14. 6. 2026</span>
             </div>
             <div class="meta">
-              Družinový larp ze světa Awainu • Farská louka (za Raspenavou)
+              Družinový larp ze světa Awainu • <strong>Farská louka, za Raspenavou</strong>
             </div>
-            <div class="callout">
-              Registraci spustíme co nejdříve. Jakmile bude formulář hotový, objeví se zde výrazné tlačítko.
+            <div class="section-note">
+              Registraci spustíme co nejdříve. Jakmile bude formulář hotový, objeví se zde výrazné tlačítko „Přihlásit se“.
             </div>
           </li>
         </ul>
@@ -456,16 +465,16 @@
         <h3>Odehrané</h3>
         <ul class="list">
           <li class="item">
-            <div class="title">Stará Dobrá 2025 <span class="badge">odehráno</span></div>
+            <div class="title">Stará Dobrá 2025 <span class="badge done">odehráno</span></div>
             <div class="meta">Družinový larp (2. ročník).</div>
           </li>
           <li class="item">
-            <div class="title">Stará Dobrá 2024 <span class="badge">odehráno</span></div>
+            <div class="title">Stará Dobrá 2024 <span class="badge done">odehráno</span></div>
             <div class="meta">Družinový larp (1. ročník).</div>
           </li>
           <li class="item">
             <div class="title">Supernatural – 1. běh <span class="badge">listopad 2025</span></div>
-            <div class="meta">Moderní / temnější projekt zaměřený na atmosféru.</div>
+            <div class="meta">Modernější temnější projekt zaměřený na atmosféru.</div>
           </li>
         </ul>
       </div>
@@ -474,10 +483,10 @@
         <h3>Rozpracované</h3>
         <p class="muted">
           Pracujeme také na dalších larpových projektech, u kterých zatím není jisté, zda a kdy budou realizovány.
-          Jakmile se některý z nich přiblíží uskutečnění, doplníme sem informace.
+          Jakmile se některý z nich přiblíží uskutečnění, doplníme sem více informací.
         </p>
-        <div class="callout">
-          Máš zájem o budoucí projekty? Napiš nám a dáme vědět, až se něco otevře.
+        <div class="section-note">
+          Chceš vědět o nových projektech jako první? Ozvi se nám — dáme ti vědět, až se něco otevře.
         </div>
       </div>
 
@@ -490,11 +499,11 @@
         <ul class="list">
           <li class="item">
             <div class="title">Facebook – Larpión <span class="badge blue">komunita</span></div>
-            <div class="meta">Doplníme přímý odkaz (až budeš chtít).</div>
+            <div class="meta">Doplníme přímý odkaz (jakmile budeš chtít).</div>
           </li>
           <li class="item">
             <div class="title">Facebook – Stará Dobrá <span class="badge blue">projekt</span></div>
-            <div class="meta">Doplníme přímý odkaz (až budeš chtít).</div>
+            <div class="meta">Doplníme přímý odkaz (jakmile budeš chtít).</div>
           </li>
         </ul>
       </div>
@@ -502,7 +511,7 @@
 
     <footer>
       <div>© Larpión</div>
-      <div class="muted">Web běží na Cloudflare Pages • aktualizace pár kliků přes GitHub</div>
+      <div>Web běží na Cloudflare Pages • aktualizace přes GitHub</div>
     </footer>
 
   </div>
